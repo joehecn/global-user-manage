@@ -1,10 +1,13 @@
 {
   "name": "global-user-manage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fix": "eslint pg rbac index.js --fix",
+    "lint": "eslint pg rbac index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,23 @@
   "bugs": {
     "url": "https://github.com/joehecn/global-user-manage/issues"
   },
-  "homepage": "https://github.com/joehecn/global-user-manage#readme"
+  "homepage": "https://github.com/joehecn/global-user-manage#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.2.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "jest": "^28.1.0"
+  },
+  "dependencies": {
+    "casbin": "^5.15.1",
+    "casbin-basic-adapter": "^0.1.0",
+    "koa-authz": "^3.0.1",
+    "moment": "^2.29.3",
+    "pg": "^8.7.3",
+    "pg-format": "^1.0.4"
+  }
 }
