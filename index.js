@@ -3,6 +3,7 @@ import {
   init as initRbac
 } from './rbac/index.js'
 import pg from './pg/index.js'
+import authz from 'koa-authz'
 
 const {
   getRbacPgPoll,
@@ -19,7 +20,8 @@ const initGlobalUserManage = (postgresqlRbacPool, passwordSalt, modelPath) => {
 
   return {
     globalUserServices,
-    rbac
+    rbac,
+    authz
   }
 }
 
