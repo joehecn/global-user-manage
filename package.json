@@ -1,6 +1,6 @@
 {
   "name": "global-user-manage",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/joehecn/global-user-manage#readme",
   "devDependencies": {
+    "babel-loader": "^8.2.5",
     "eslint": "^8.16.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -28,7 +29,10 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
-    "jest": "^28.1.0"
+    "jest": "^28.1.0",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "casbin": "^5.15.1",
