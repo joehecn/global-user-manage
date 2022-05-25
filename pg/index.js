@@ -144,7 +144,7 @@ const init = (rbacPgPool, passwordSalt) => {
     emailVerified,
     nickName
   ]) => {
-    let user = await getByPhoneOrEmail(countryCode, phone, email)
+    let user = await getByPhoneOrEmailAndPassword(countryCode, phone, email, password)
 
     if (user) return user
 
