@@ -18,6 +18,10 @@ export const getQ = rbacPgPool => {
     try {
       const res = await client.query(query)
       return res
+    } catch (err) {
+      console.log('------ q error:')
+      console.error(err)
+      throw err
     } finally {
       // Make sure to release the client before any error handling,
       // just in case the error handling itself throws an error.
