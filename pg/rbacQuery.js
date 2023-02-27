@@ -33,7 +33,7 @@ export const getQ = rbacPgPool => {
     try {
       const res = await rbacPgPool.query(query)
       return res
-    } catch (error) {
+    } catch (err) {
       console.log('------ q error:')
       console.error(err)
       throw err
