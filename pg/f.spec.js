@@ -1,5 +1,5 @@
 
-// npm test test/pg/f.test.js
+// npm test pg/f.spec.js
 
 import f from './f.js'
 
@@ -51,7 +51,27 @@ it('jsonb.find()', () => {
     $or: [{ "schema->>'title'": /switch/ }, { "schema->>'type'": 'string' }]
   }).exec()).toBe("SELECT * FROM public.json_schema WHERE schema_type = 'instruction_profile' AND (schema->>'title' ~* 'switch' OR schema->>'type' = 'string')")
 })
-
+// path
+it('path', () => {
+  expect(f('tree').find({ 'path @>': '63' }).exec())
+    .toBe(`SELECT * FROM public.tree WHERE path @> '63'`)
+})
+// IS NOT NULL
+it('IS NOT NULL', () => {
+  // 下面两个方法等效
+  // 暂时也没想到更好的方法
+  expect(f('lift').find({ 'tree_id IS NOT NULL': 'tree_id IS NOT NULL' }).exec())
+    .toBe(`SELECT * FROM public.lift WHERE tree_id IS NOT NULL`)
+})
+// Date
+it('Date', () => {
+  expect(f('log_replace_octopus_card').find({ 'created_at >=': new Date('2022-02-01') }).exec())
+    .toBe(`SELECT * FROM public.log_replace_octopus_card WHERE created_at >= '2022-02-01 00:00:00.000+00'`)
+})
+// ->> number
+it('->> number', () => {
+  expect(f('json_schema').find({ "schema->>'count'": 0 }).exec()).toBe("SELECT * FROM public.json_schema WHERE schema->>'count' = 0")
+})
 it('f().count()', () => {
   expect(f('i18n').count().exec()).toBe('SELECT count(*)::int FROM public.i18n')
   // 忽略 count 后 find
@@ -98,7 +118,7 @@ it('f().sort().offset().limit()', () => {
 //       .exec()
 //     ).toBe("SELECT schema FROM public.json_schema WHERE schema_type = 'instruction' AND data_transmission_type = ANY('{Send only,Report only}')")
 // })
-it.only('$in', () => {
+it('$in', () => {
   const where = {
     key: 'home',
     id: { $in: [3, 4] }

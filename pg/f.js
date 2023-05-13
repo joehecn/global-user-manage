@@ -3,7 +3,7 @@ import util from 'util'
 import format from 'pg-format'
 import moment from 'moment'
 
-function _getItem (key, value) {
+function _getItem(key, value) {
   if (util.types.isRegExp(value)) {
     // node14 不兼容
     // return format('%I ~* %L', key, value.toString().replaceAll('/', ''))
@@ -37,6 +37,7 @@ function _getItem (key, value) {
       return format(`${key} %L`, value)
     }
 
+    /* istanbul ignore else */
     if (value.$in) {
       // { $in: ['Send only', 'Report only'] }
       value = `ANY('{${value.$in.join(',')}}')`
@@ -50,7 +51,7 @@ function _getItem (key, value) {
   return format('%I = %s', key, value)
 }
 
-function _getOr (or) {
+function _getOr(or) {
   const arr = or.map(obj => {
     const key = Object.keys(obj)[0]
     const value = obj[key]
@@ -61,7 +62,7 @@ function _getOr (or) {
 }
 
 class F {
-  constructor (tableName) {
+  constructor(tableName) {
     this.callCounted = false
     this.query = {
       SELECT: '*',
@@ -73,7 +74,7 @@ class F {
     }
   }
 
-  find (where = {}, select = {}) {
+  find(where = {}, select = {}) {
     // 如果已经 count 过了
     if (this.callCounted) return this
 
@@ -124,13 +125,13 @@ class F {
     return this
   }
 
-  count () {
+  count() {
     this.callCounted = true
     this.query.SELECT = 'count(*)::int'
     return this
   }
 
-  sort (orderBy) {
+  sort(orderBy) {
     this.query['ORDER BY'] = 'id DESC'
 
     /* istanbul ignore else */
@@ -162,7 +163,7 @@ class F {
     return this
   }
 
-  offset (n = 0) {
+  offset(n = 0) {
     const intN = parseInt(n)
 
     /* istanbul ignore else */
@@ -171,7 +172,7 @@ class F {
     return this
   }
 
-  limit (n = 10) {
+  limit(n = 10) {
     const intN = parseInt(n)
 
     /* istanbul ignore else */
@@ -182,24 +183,24 @@ class F {
     return this
   }
 
-  exec () {
+  exec() {
     const strArr = []
     const argArr = []
 
-    ;['SELECT', 'FROM', 'WHERE', 'ORDER BY', 'OFFSET', 'LIMIT'].forEach(key => {
-      const value = this.query[key]
+      ;['SELECT', 'FROM', 'WHERE', 'ORDER BY', 'OFFSET', 'LIMIT'].forEach(key => {
+        const value = this.query[key]
 
-      // 忽略 OFFSET = 0, LIMIT = 0
-      if (value) {
-        strArr.push('%s', '%s')
-        argArr.push(key, value)
-      }
-    })
+        // 忽略 OFFSET = 0, LIMIT = 0
+        if (value) {
+          strArr.push('%s', '%s')
+          argArr.push(key, value)
+        }
+      })
 
     return format.withArray(strArr.join(' '), argArr)
   }
 }
 
-export default function f (tableName) {
+export default function f(tableName) {
   return new F(tableName)
 }
