@@ -11,11 +11,13 @@ export type GlobalUserManage = {
   updatePassword: (id: string, password: string) => Promise<any>;
 };
 
+export type Options = {
+  newEnforcer: () => Promise<any>;
+  authorizer: (ctx: any, e: any) => any;
+}
+
 export type RbacManage = {
-  authzArg: {
-    newEnforcer: () => Promise<any>;
-    authorizer: (ctx: any, e: any) => any;
-  };
+  authzArg: Options;
   initOnePolicy: (p: any) => Promise<void>;
   initOneGroup: (g: any) => Promise<void>;
   addGroupingPolicy: (g: any) => Promise<boolean>;

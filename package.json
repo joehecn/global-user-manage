@@ -42,7 +42,6 @@
   "dependencies": {
     "casbin": "^5.26.1",
     "casbin-basic-adapter": "^0.1.0",
-    "koa-authz": "^3.0.1",
     "pg": "^8.10.0",
     "pg-sql-generator": "^0.0.3"
   }

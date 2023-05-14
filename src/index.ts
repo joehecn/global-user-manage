@@ -1,4 +1,4 @@
-import authz from 'koa-authz';
+import authz from './koa-authz/authz';
 
 import { init as initRbac } from './rbac';
 

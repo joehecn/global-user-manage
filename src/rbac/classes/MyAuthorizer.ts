@@ -1,4 +1,4 @@
-import BasicAuthorizer from 'koa-authz/BasicAuthorizer';
+import BasicAuthorizer from '../../koa-authz/BasicAuthorizer';
 
 class MyAuthorizer extends BasicAuthorizer {
   constructor(ctx: any, enforcer: any) {
