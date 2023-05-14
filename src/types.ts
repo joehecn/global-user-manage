@@ -14,7 +14,7 @@ export type GlobalUserManage = {
 export type Options = {
   newEnforcer: () => Promise<any>;
   authorizer: (ctx: any, e: any) => any;
-}
+};
 
 export type RbacManage = {
   authzArg: Options;
