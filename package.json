@@ -1,6 +1,6 @@
 {
   "name": "global-user-manage",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "global user manage",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
