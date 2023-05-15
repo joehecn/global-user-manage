@@ -8,6 +8,7 @@ export type GlobalUserManage = {
   getByPhone: (countryCode: string, phone: string) => Promise<any>;
   create: (values: any[]) => Promise<any>;
   update: (values: any[]) => Promise<any>;
+  update2: ({ set, where, returning }: any) => Promise<any>;
   updatePassword: (id: string, password: string) => Promise<any>;
 };
 

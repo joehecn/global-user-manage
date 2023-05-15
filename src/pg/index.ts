@@ -148,6 +148,11 @@ const init = (rbacPgPool: Pool, passwordSalt: string) => {
     const { rows } = await q({ name: 'global-user-update', text, values });
     return rows[0];
   };
+  const update2 = async ({ set, where, returning }: any) => {
+    const query = f('global_user').update(set, where, returning).exec();
+    const { rows } = await q(query);
+    return rows[0];
+  };
 
   const updatePassword = async (id: string, password: string) => {
     const passwordHash = await _asyncPbkdf2(password);
@@ -160,19 +165,6 @@ const init = (rbacPgPool: Pool, passwordSalt: string) => {
     return rows[0];
   };
 
-  type InitRes = {
-    list: (args: any) => Promise<any>;
-    get: (id: string) => Promise<any>;
-    getActiveUserById: (id: string) => Promise<any>;
-    getByIdAndPassword: (id: string, password: string) => Promise<any>;
-    getByPhoneOrEmail: (countryCode: string, phone: string, email: string) => Promise<any>;
-    getByPhoneOrEmailAndPassword: (countryCode: string, phone: string, email: string, password: string) => Promise<any>;
-    getByPhone: (countryCode: string, phone: string) => Promise<any>;
-    create: (values: any[]) => Promise<any>;
-    update: (values: any[]) => Promise<any>;
-    updatePassword: (id: string, password: string) => Promise<any>;
-  };
-
   _res = {
     list,
     get,
@@ -183,6 +175,7 @@ const init = (rbacPgPool: Pool, passwordSalt: string) => {
     getByPhone,
     create,
     update,
+    update2,
     updatePassword,
   };
 
